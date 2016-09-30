@@ -27,11 +27,11 @@ public class VerifyCodeController {
     @RequestMapping(value = "send-code")
     @ResponseBody
     public AppResponse sendVerifyCode(@RequestBody VerifyCodeRequest request) {
-        AppResponse response=new AppResponse();
+        AppResponse response = new AppResponse();
         try {
             verifyCodeService.sendVerifyCode(request);
-            Logs.info("sentVerifyCode返回信息：", response);
-        }catch (Exception e){
+            Logs.info("sentVerifyCode返回信息：" + response);
+        } catch (Exception e) {
             Logs.error("操作失败：", e);
             response.setCodeError(AppResponse.CodeEnum.ERROR);
         }
