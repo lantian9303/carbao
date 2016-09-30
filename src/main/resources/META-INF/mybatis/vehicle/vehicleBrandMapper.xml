@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.vehicle.VehicleBrandMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.vehicle.VehicleBrandEntity">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url_spell" property="urlSpell"/>
+        <result column="t_spell" property="tSpell"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="pid" property="pid"/>
+        <result column="tem_id" property="temId"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.vehicle.VehicleBrandEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_vehicle_brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="urlSpell != null">
+                url_spell,
+            </if>
+            <if test="tSpell != null">
+                t_spell,
+            </if>
+            <if test="temId != null">
+                tem_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                #{pid},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="urlSpell != null">
+                #{urlSpell,jdbcType=VARCHAR},
+            </if>
+            <if test="tSpell != null">
+                #{tSpell,jdbcType=VARCHAR},
+            </if>
+            <if test="temId != null">
+                #{temId},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT * FROM t_vehicle_brand WHERE id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM t_vehicle_brand
+    </select>
+</mapper>

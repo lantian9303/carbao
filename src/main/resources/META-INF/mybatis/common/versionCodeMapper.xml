@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.common.VersionCodeMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.common.VersionCodeEntity">
+        <id column="id" property="id"/>
+        <result column="version_code" property="versionCode"/>
+        <result column="client_type" property="clientTypev"/>
+        <result column="download_url" property="downloadUrl"/>
+        <result column="forced" property="forced"/>
+        <result column="update_content" property="updateContent"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.common.VersionCodeEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_version
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="updateContent != null">
+                update_content,
+            </if>
+            <if test="versionCode != null">
+                version_code,
+            </if>
+            <if test="clientTypev != null">
+                client_type,
+            </if>
+            <if test="downloadUrl != null">
+                download_url,
+            </if>
+            <if test="forced != null">
+                forced,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="updateContent != null">
+                #{updateContent},
+            </if>
+            <if test="versionCode != null">
+                #{versionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="clientTypev != null">
+                #{clientTypev,jdbcType=VARCHAR},
+            </if>
+            <if test="downloadUrl != null">
+                #{downloadUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="forced != null">
+                #{forced},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT * FROM t_version WHERE id=#{id}
+    </select>
+    <select id="selectLastVersion" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM t_version where client_type=#{type} order by version_code desc limit 1
+    </select>
+</mapper>

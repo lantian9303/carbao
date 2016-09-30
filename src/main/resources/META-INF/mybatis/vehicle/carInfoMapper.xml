@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.vehicle.CarInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.vehicle.CarInfoEntity">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="year" property="year"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="sub_brand_id" property="subBrandId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="trans" property="trans"/>
+        <result column="car_type" property="carType"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.vehicle.CarInfoEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_car_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="trans != null">
+                trans,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="subBrandId != null">
+                sub_brand_id,
+            </if>
+            <if test="carType != null">
+                car_type,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=VARCHAR},
+            </if>
+            <if test="trans != null">
+                #{trans,jdbcType=VARCHAR},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=VARCHAR},
+            </if>
+            <if test="subBrandId != null">
+                #{subBrandId,jdbcType=VARCHAR},
+            </if>
+            <if test="carType != null">
+                #{carType},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT * FROM t_car_info WHERE id=#{id}
+    </select>
+
+    <select id="selectBySubBrandId" parameterType="long" resultMap="BaseResultMap">
+        SELECT * FROM t_car_info WHERE sub_brand_id=#{subBrandId}
+    </select>
+
+    <select id="selectByMap" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM t_car_info WHERE 1=1
+        <if test="year!=null">
+            and year=#{year}
+        </if>
+        <if test="subBrandId!=null">
+            and sub_brand_id=#{subBrandId}
+        </if>
+    </select>
+</mapper>

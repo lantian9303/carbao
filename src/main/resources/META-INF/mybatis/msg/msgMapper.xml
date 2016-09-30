@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.msg.MsgMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.msg.MsgEntity">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="content" property="content"/>
+        <result column="from" property="from"/>
+        <result column="flag" property="flag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="long">
+        SELECT * FROM t_msg where id=#{id}
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap" parameterType="map">
+        SELECT * FROM t_msg
+        WHERE 1=1
+        <if test="flag!=null">
+            and flag=#{flag}
+        </if>
+        <if test="from!=null">
+            and from=#{from}
+        </if>
+        <if test="userId!=null">
+            and user_id=#{userId}
+        </if>
+    </select>
+
+    <update id="update" parameterType="com.yeww.carbao.model.msg.MsgEntity">
+        UPDATE t_msg
+        <set>
+            <if test="userId!=null">
+                user_id=#{userId},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+            <if test="from!=null">
+                from=#{from},
+            </if>
+            <if test="flag!=null">
+                flag=#{flag},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.msg.MsgEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_msg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="from != null">
+                from,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="from != null">
+                #{from},
+            </if>
+            <if test="flag != null">
+                #{flag},
+            </if>
+        </trim>
+    </insert>
+</mapper>

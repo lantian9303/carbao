@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.common.VerifyCodeMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.common.VerifyCodeEntity">
+        <id column="id" property="id"/>
+        <result column="verify_code" property="verifyCode"/>
+        <result column="verify_type" property="verifyType"/>
+        <result column="client_type" property="clientType"/>
+        <result column="client_code" property="clientCode"/>
+        <result column="valid_sign" property="validSign"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.common.VerifyCodeEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_verify_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="verifyCode != null">
+                verify_code,
+            </if>
+            <if test="verifyType != null">
+                verify_type,
+            </if>
+            <if test="clientType != null">
+                client_type,
+            </if>
+            <if test="clientCode != null">
+                client_code,
+            </if>
+            <if test="validSign != null">
+                valid_sign,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="verifyCode != null">
+                #{verifyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="verifyType != null">
+                #{verifyType,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="clientCode != null">
+                #{clientCode,jdbcType=VARCHAR},
+            </if>
+            <if test="validSign != null">
+                #{validSign},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.yeww.carbao.model.common.VerifyCodeEntity">
+        UPDATE t_verify_code
+        <set>
+            <if test="validSign!=null">
+                valid_sign=#{validSign},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT * FROM t_verify_code WHERE id=#{id}
+    </select>
+
+    <select id="selectOne" resultMap="BaseResultMap" parameterType="com.yeww.carbao.model.common.VerifyCodeEntity">
+        SELECT * FROM t_verify_code
+        WHERE valid_sign=0 and verify_code=#{verifyCode} and verify_type=#{verifyType}
+        and client_type=#{clientType} and client_code=#{clientCode}
+    </select>
+</mapper>

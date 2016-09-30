@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.car.CarScopeMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.car.CarScopeEntity">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="car_id" property="carId"/>
+        <result column="lng" property="lng"/>
+        <result column="lat" property="lat"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="distance" property="distance"/>
+        <result column="valid_sign" property="valid_sign"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <select id="selectList" parameterType="map" resultMap="BaseResultMap">
+        SELECT * from t_scope where 1=1
+        <if test="userId!=null">
+            and user_id=#{userId}
+        </if>
+        <if test="carId!=null">
+            and car_id=#{carId}
+        </if>
+    </select>
+    
+    <insert id="insert" parameterType="com.yeww.carbao.model.car.CarScopeEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_scope
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="carId != null">
+                car_id,
+            </if>
+            <if test="lat != null">
+                lat,
+            </if>
+            <if test="lng != null">
+                lng,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="distance != null">
+                distance,
+            </if>
+            <if test="valid_sign != null">
+                valid_sign,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="carId != null">
+                #{carId},
+            </if>
+            <if test="lat != null">
+                #{lat},
+            </if>
+            <if test="lng != null">
+                #{lng},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="distance != null">
+                #{distance},
+            </if>
+            <if test="valid_sign != null">
+                #{valid_sign},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>

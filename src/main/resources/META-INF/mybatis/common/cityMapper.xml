@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.common.CityMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.common.CityEntiity">
+        <id column="id" property="id"/>
+        <result column="city_type" property="cityType"/>
+        <result column="city_code" property="cityCode"/>
+        <result column="city_name" property="cityName"/>
+        <result column="city_zh" property="cityZh"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="pid" property="pid"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.common.CityEntiity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_city
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="cityType != null">
+                city_type,
+            </if>
+            <if test="cityCode != null">
+                city_code,
+            </if>
+            <if test="cityName != null">
+                city_name,
+            </if>
+            <if test="cityZh != null">
+                city_zh,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                #{pid},
+            </if>
+            <if test="cityType != null">
+                #{cityType,jdbcType=VARCHAR},
+            </if>
+            <if test="cityCode != null">
+                #{cityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityZh != null">
+                #{cityZh,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM t_city where 1=1
+        <if test="cityType!=null">
+            and city_type=#{cityType}
+        </if>
+    </select>
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT * FROM t_city WHERE id=#{id}
+    </select>
+</mapper>
