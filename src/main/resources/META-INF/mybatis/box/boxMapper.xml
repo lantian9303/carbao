@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.box.BoxMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.box.BoxEntity">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="version" property="version"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="price" property="price"/>
+        <result column="name" property="name"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="long">
+        SELECT * FROM t_box where id=#{id}
+    </select>
+
+    <update id="update" parameterType="com.yeww.carbao.model.box.BoxEntity">
+        UPDATE t_box
+        <set>
+            <if test="type!=null">
+                type=#{type},
+            </if>
+            <if test="version!=null">
+                version=#{version},
+            </if>
+            <if test="seriesId!=null">
+                img_url=#{imgUrl},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.box.BoxEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_box
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                type,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="imgUrl != null">
+                img_url,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            <if test="imgUrl != null">
+                #{imgUrl},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>

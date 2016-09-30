@@ -12,4 +12,8 @@
     <select id="queryFace" resultMap="BaseResultMap">
         SELECT * FROM t_gas_face
     </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * from t_gas_face where id=#{id}
+    </select>
 </mapper>

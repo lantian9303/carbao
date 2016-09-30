@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yeww.carbao.dao.gas.GasOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.yeww.carbao.model.gas.GasOrderEntity">
+        <id column="id" property="id"/>
+        <result column="order_num" property="orderNum"/>
+        <result column="face_id" property="faceId"/>
+        <result column="user_id" property="userId"/>
+        <result column="price" property="price"/>
+        <result column="status" property="status"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="long">
+        SELECT * FROM t_box where id=#{id}
+    </select>
+
+    <select id="queryBoxOrderList" resultMap="BaseResultMap" parameterType="map">
+        SELECT * FROM t_box where 1=1
+        <if test="userId!=null">
+            and user_id=#{userId}
+        </if>
+    </select>
+
+    <update id="update" parameterType="com.yeww.carbao.model.box.BoxEntity">
+        UPDATE t_box_order
+        <set>
+            <if test="orderNum!=null">
+                order_num=#{orderNum},
+            </if>
+            <if test="faceId!=null">
+                face_id=#{faceId},
+            </if>
+            <if test="userId!=null">
+                user_id=#{userId},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+    <insert id="insert" parameterType="com.yeww.carbao.model.box.BoxEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO t_box_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="faceId != null">
+                face_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNum != null">
+                #{orderNum},
+            </if>
+            <if test="faceId != null">
+                #{faceId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="price != null">
+                #{price},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>

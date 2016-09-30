@@ -33,7 +33,7 @@ public class FaceValueController {
         try {
             List<FaceValueResponse> carSetEntity = gasFaceService.queryFace(request);
             response.setData(carSetEntity);
-            Logs.info("queryFace返回信息：", response);
+            Logs.info("queryFace返回信息：" + response);
         } catch (Exception e) {
             Logs.error("操作失败：", e);
             response.setCodeError(AppResponse.CodeEnum.ERROR);
