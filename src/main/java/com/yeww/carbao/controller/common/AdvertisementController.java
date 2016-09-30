@@ -33,7 +33,7 @@ public class AdvertisementController {
         try {
             List<AdvertisementRespnse> carSetEntity = advertisementService.queryList();
             response.setData(carSetEntity);
-            Logs.info("query返回信息：", response);
+            Logs.info("query返回信息：" + response);
         } catch (Exception e) {
             Logs.error("操作失败：", e);
             response.setCodeError(AppResponse.CodeEnum.ERROR);

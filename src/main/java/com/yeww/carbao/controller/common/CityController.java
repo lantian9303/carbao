@@ -30,7 +30,7 @@ public class CityController {
         try {
             List<CityQueryResponse> infos = cityService.getCityInfo();
             response.setData(infos);
-            Logs.info("getAll返回信息：", response);
+            Logs.info("getAll返回信息：" + response);
         } catch (Exception e) {
             Logs.error("操作失败：", e);
             response.setCodeError(AppResponse.CodeEnum.ERROR);
