@@ -12,5 +12,5 @@ public interface CarScopeMapper {
 
     List<CarScopeEntity> selectList(Map map);
 
-    int insert(CarScopeEntity entity);
+    Integer insert(CarScopeEntity entity);
 }

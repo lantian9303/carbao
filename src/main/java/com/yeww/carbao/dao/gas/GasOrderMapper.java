@@ -10,11 +10,11 @@ import java.util.Map;
  * Created by yeweiwei1 on 2016/9/30.
  */
 public interface GasOrderMapper {
-    Long insert(GasOrderEntity entity);
+    Integer insert(GasOrderEntity entity);
 
     GasOrderEntity selectById(Long id);
 
-    void update(GasOrderEntity carEntity);
+    Integer update(GasOrderEntity carEntity);
 
     List<GasOrderEntity> queryBoxOrderList(Map paramMap);
 }

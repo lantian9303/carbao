@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by yeweiwei1 on 2016/8/8.
  */
 public interface CityMapper {
-    int insert(CityEntiity cityEntiity);
+    Integer insert(CityEntiity cityEntiity);
 
     List<CityEntiity> selectAll(Map param);
 

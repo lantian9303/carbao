@@ -7,11 +7,11 @@ import com.yeww.carbao.model.common.VerifyCodeEntity;
  */
 public interface VerifyCodeMapper {
 
-    int insert(VerifyCodeEntity entity);
+    Integer insert(VerifyCodeEntity entity);
 
     VerifyCodeEntity selectById(long id);
 
     VerifyCodeEntity selectOne(VerifyCodeEntity entity);
 
-    int update(VerifyCodeEntity entity);
+    Integer update(VerifyCodeEntity entity);
 }

@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface CarInfoMapper {
 
-    int insert(CarInfoEntity entity);
+    Integer insert(CarInfoEntity entity);
 
     CarInfoEntity selectById(Long id);
 

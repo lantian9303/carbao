@@ -7,7 +7,7 @@ import com.yeww.carbao.model.common.VersionCodeEntity;
  */
 public interface VersionCodeMapper {
 
-    int insert(VersionCodeEntity entity);
+    Integer insert(VersionCodeEntity entity);
 
     VersionCodeEntity selectById(Long id);
 

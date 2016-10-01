@@ -11,9 +11,9 @@ public interface CarMapper {
 
     CarEntity selectOne(Map paramMap);
 
-    Long insert(CarEntity entity);
+    Integer insert(CarEntity entity);
 
     CarEntity selectById(Long id);
 
-    void update(CarEntity carEntity);
+    Integer update(CarEntity carEntity);
 }

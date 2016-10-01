@@ -9,11 +9,11 @@ import java.util.Map;
  */
 public interface UserMapper {
 
-    int insert(UserEntity userEntity);
+    Integer insert(UserEntity userEntity);
 
     UserEntity selectById(Long id);
 
     UserEntity selectOne(Map paramMpa);
 
-    void update(UserEntity entity);
+    Integer update(UserEntity entity);
 }

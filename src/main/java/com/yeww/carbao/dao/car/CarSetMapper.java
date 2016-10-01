@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public interface CarSetMapper {
 
-    int insert(CarSetEntity carSetEntity);
+    Integer insert(CarSetEntity carSetEntity);
 
-    int update(CarSetEntity carSetEntity);
+    Integer update(CarSetEntity carSetEntity);
 
     CarSetEntity selectOne(Map param);
 }

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface VehicleBrandMapper {
 
-    int insert(VehicleBrandEntity entity);
+    Integer insert(VehicleBrandEntity entity);
 
     VehicleBrandEntity selectById(Long id);
 

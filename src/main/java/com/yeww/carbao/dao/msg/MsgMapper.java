@@ -10,11 +10,11 @@ import java.util.Map;
  */
 public interface MsgMapper {
 
-    Long insert(MsgEntity entity);
+    Integer insert(MsgEntity entity);
 
     MsgEntity selectById(Long id);
 
     List<MsgEntity> selectList(Map paramsMap);
 
-    void update(MsgEntity carEntity);
+    Integer update(MsgEntity carEntity);
 }

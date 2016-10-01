@@ -9,11 +9,11 @@ import java.util.Map;
  * Created by yeweiwei1 on 2016/9/30.
  */
 public interface BoxOrderMapper {
-    Long insert(BoxOrderEntity entity);
+    Integer insert(BoxOrderEntity entity);
 
     BoxOrderEntity selectById(Long id);
 
-    void update(BoxOrderEntity carEntity);
+    Integer update(BoxOrderEntity carEntity);
 
     List<BoxOrderEntity> queryBoxOrderList(Map paramMap);
 }
